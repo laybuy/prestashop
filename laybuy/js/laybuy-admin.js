@@ -1,5 +1,13 @@
 jQuery(function($) {
 
+    $('#laybuy-support').replaceWith('<button type="button" id="laybuy-support-btn">Send Support Request</button>');
+
+    $('#laybuy-support-btn').on('click', function () {
+        $.post('/module/laybuy/support').then(function () {
+
+        });
+    });
+
     if (!$('#LAYBUY_CURRENCY').val()) {
         $('#LAYBUY_CURRENCY').val('NZD');
     }

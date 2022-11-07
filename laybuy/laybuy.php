@@ -565,8 +565,17 @@ class Laybuy extends PaymentModule
                     ),
                     'required'  =>  false
                 ),
+
+                // Support
+                array(
+                    'type' =>  'text',
+                    'id' => 'laybuy-support',
+                    'name' =>  'LAYBUY_SUPPORT',
+                    'required'  =>  false
+                ),
             ),
             'submit' => array(
+                'label' => 'Support',
                 'title' => $this->l('Save'),
                 'class' => 'btn btn-default pull-right'
             )
@@ -580,29 +589,27 @@ class Laybuy extends PaymentModule
         $helper->token = Tools::getAdminTokenLite('AdminModules');
         $helper->currentIndex = AdminController::$currentIndex.'&configure='.$this->name;
 
-
         // Title and toolbar
         $helper->title = $this->displayName;
-        $helper->show_toolbar = true;        // false -> remove toolbar
-        $helper->toolbar_scroll = true;      // yes - > Toolbar is always visible on the top of the screen.
+        $helper->show_toolbar = true; // false -> remove toolbar
+        $helper->toolbar_scroll = true; // yes - > Toolbar is always visible on the top of the screen.
         $helper->submit_action = 'submit'.$this->name;
         $helper->toolbar_btn = array(
-            'save' =>
-            array(
+            'save' => array(
                 'desc' => $this->l('Save'),
                 'href' => AdminController::$currentIndex.'&configure='.$this->name.'&save'.$this->name.
                 '&token='.Tools::getAdminTokenLite('AdminModules'),
             ),
             'back' => array(
                 'href' => AdminController::$currentIndex.'&token='.Tools::getAdminTokenLite('AdminModules'),
-                'desc' => $this->l('Back to list')
-            )
+                'desc' => $this->l('Back to list!')
+            ),
         );
 
-        $helper->fields_value['LAYBUY_ENABLED']            = Configuration::get('LAYBUY_ENABLED');
-        $helper->fields_value['LAYBUY_API_ENVIRONMENT']    = Configuration::get('LAYBUY_API_ENVIRONMENT');
-        $helper->fields_value['LAYBUY_GLOBAL']             = Configuration::get('LAYBUY_GLOBAL');
-        $helper->fields_value['LAYBUY_CURRENCY[]']         = json_decode(Configuration::get('LAYBUY_CURRENCY'), true);
+        $helper->fields_value['LAYBUY_ENABLED']         = Configuration::get('LAYBUY_ENABLED');
+        $helper->fields_value['LAYBUY_API_ENVIRONMENT'] = Configuration::get('LAYBUY_API_ENVIRONMENT');
+        $helper->fields_value['LAYBUY_GLOBAL']          = Configuration::get('LAYBUY_GLOBAL');
+        $helper->fields_value['LAYBUY_CURRENCY[]']      = json_decode(Configuration::get('LAYBUY_CURRENCY'), true);
 
         $helper->fields_value['LAYBUY_SANDBOX_NZD_MERCHANT_ID']    = Configuration::get('LAYBUY_SANDBOX_NZD_MERCHANT_ID');
         $helper->fields_value['LAYBUY_SANDBOX_NZD_API_KEY']        = Configuration::get('LAYBUY_SANDBOX_NZD_API_KEY');
@@ -815,7 +822,6 @@ class Laybuy extends PaymentModule
         }
 
         $this->context->controller->addCSS($this->_path."css/laybuy.css", "all");
-        $this->context->controller->addJS($this->_path."js/laybuy.js");
     }
 
     public function hookDisplayBackOfficeHeader()

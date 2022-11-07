@@ -1,0 +1,5 @@
+admin_laybuy_support_module:
+        path: /addons/modules/laybuy_support
+        methods: [GET]
+        defaults:
+                _controller: mbo.controller.modules.catalog:indexAction
